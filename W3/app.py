@@ -83,7 +83,7 @@ def generate_course_html(course_id):
     plt.savefig("histogram.png")  # Save the histogram as an image
 
     # Generate the complete HTML page
-    html_page = f"""
+    template = Template("""
     <!DOCTYPE html>
     <html>
     <head>
@@ -104,11 +104,12 @@ def generate_course_html(course_id):
         <img src="histogram.png" alt="Histogram of Marks">
     </body>
     </html>
-    """
-    file = open('output.html', 'w')
-    file.write(html_page)
-    file.close()
+    """)
+    html_page = template.render(std_df=course_df.to_dict(orient='records'), average_marks=average_marks ,max_marks=max_marks )
+    with open('output.html', 'w') as file:
+        file.write(html_page)
     return html_page
+
 
 
 
