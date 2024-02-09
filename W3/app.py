@@ -37,8 +37,9 @@ def generate_student_html(student_id):
             {% if std_df %}
          <table>
             <tr>
-                <th>Average Marks</th>
-                <th>Maximum Marks</th>
+                <th>Student id</th>
+                <th>Course id</th>
+                <th>Marks</th>
             </tr>
             {% for row in std_df %}
             <tr>
