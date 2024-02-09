@@ -1,0 +1,34 @@
+/* W2/static/resume.css */
+
+/* Style for the header section */
+
+body{
+    background-color: #fdfdbb;
+    
+}
+
+a{
+    color: red;
+}
+
+
+
+/* Style for the footer section */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+tr{
+    background-color: black;
+    color: white;
+    text-align: right;
+}
+
+.table_row{
+    background-color: #25933f;
+    color : black;
+}
