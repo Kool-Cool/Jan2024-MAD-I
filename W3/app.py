@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader , Template
 import sys
 
 
@@ -26,7 +26,7 @@ def generate_student_html(student_id):
     html_table = std_df.to_html(index=False, classes="table")
 
     # Generate the complete HTML page
-    html_page = f"""
+    template = Template("""
     <!DOCTYPE html>
     <html>
     <head>
@@ -34,14 +34,32 @@ def generate_student_html(student_id):
     </head>
     <body>
         <h1>Student Details</h1>
-        {html_table}
-        <p><strong>Total Marks:</strong> {total_marks}</p>
+            {% if std_df %}
+         <table>
+            <tr>
+                <th>Average Marks</th>
+                <th>Maximum Marks</th>
+            </tr>
+            {% for row in std_df %}
+            <tr>
+                <td>{{ row['Student id'] }}</td>
+                <td>{{ row[' Course id'] }}</td>
+                <td>{{ row[' Marks'] }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                    <td colspan="2">Total Marks</td>
+                    <td>{{ total_marks }}</td>
+            </tr>
+        </table>
+        {% endif %}
+
     </body>
     </html>
-    """
-    file = open('output.html', 'w')
-    file.write(html_page)
-    file.close()
+    """)
+    html_page = template.render(std_df=std_df.to_dict(orient='records'), total_marks=total_marks)
+    with open('output.html', 'w') as file:
+        file.write(html_page)
     return html_page
 
 
